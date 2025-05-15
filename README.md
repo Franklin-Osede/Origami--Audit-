@@ -1,4 +1,4 @@
-Origami Protocol Security Audit
+### Origami Protocol Security Audit
 
 Voluntary Security Research & Methodologies for Ori.Network
 
@@ -14,11 +14,11 @@ Burn wrapped assets to redeem the original tokens on any destination chain.
 
 This architecture decouples liquidity from any single blockchain, optimizing for high throughput, low fees, and seamless DeFi composability.
 
-Repository Overview
+### Repository Overview
 
 This repository contains automation scripts, configuration templates, and documentation of the security research approach applied to the Origami smart contracts. As a volunteer researcher, I focus on exploring attack surfaces rather than delivering formal findings.
 
-Research Scope & Objectives
+### Research Scope & Objectives
 
 My voluntary engagement emphasizes:
 
@@ -28,7 +28,7 @@ Attempting to surface issues related to reentrancy, access control, and edge-cas
 
 Stress-testing fee calculations and reserve accounting under atypical input values.
 
-Contracts under review:
+### Contracts under review:
 
 OrigamiBridge.sol
 
@@ -44,7 +44,7 @@ Techniques & Tools Used
 
 To systematically probe the protocol, I employ a combination of automated and manual techniques:
 
-Static Analysis
+### Static Analysis
 
 Slither: Identifies common Solidity anti-patterns and potential misconfigurations.
 
@@ -52,7 +52,7 @@ Mythril: Scans for executable paths to known exploit categories.
 
 Securify & Oyente: Cross-check findings for consistency.
 
-Dynamic & Fuzz Testing
+### Dynamic & Fuzz Testing
 
 Echidna: Property-based fuzzing to explore invariant violations.
 
@@ -60,7 +60,7 @@ Manticore: Symbolic execution to trace complex code paths.
 
 Foundry (forge): Custom test harnesses for edge-case scenarios.
 
-Formal Verification
+### Formal Verification
 
 Certora Prover: Proofs for critical asset custody invariants.
 
@@ -72,7 +72,7 @@ Transaction simulation with Hardhat to test revert conditions and event emission
 
 Custom scripts using Brownie or Web3.py to simulate multi-user interactions.
 
-Setup & Usage
+### Setup & Usage
 
 # Clone repository
 git clone https://github.com/Franklin-Osede/Origami--Audit-.git
