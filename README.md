@@ -1,53 +1,143 @@
-# Origami Monorepo
+Origami Protocol Security Audit
 
-For documentation on the upcoming Origami v2, please see [HERE](./docs/README.md)
+Voluntary Security Research & Methodologies for Ori.Network
 
-## Getting Started
+About the Ori.Network Protocol
 
-### Contracts
+Ori.Network provides a universal liquidity layer for cross-chain asset transfers. Through a mint-and-burn mechanism, the protocol enables users to:
 
-tl;dr:
+Mint wrapped assets by locking underlying tokens in liquidity pools.
 
-```bash
-cd apps/protocol
-git submodule update --init --recursive
+Bridge those assets across supported chains.
 
-# Install foundry if not already installed.
-# curl -L https://foundry.paradigm.xyz | bash
-# Update foundry version to latest
-foundryup
+Burn wrapped assets to redeem the original tokens on any destination chain.
 
-# npm packages used for ext. deps
-nvm use
-yarn
+This architecture decouples liquidity from any single blockchain, optimizing for high throughput, low fees, and seamless DeFi composability.
 
-forge test
-```
+Repository Overview
 
-See [./apps/protocol/README.md](./apps/protocol/README.md)
+This repository contains automation scripts, configuration templates, and documentation of the security research approach applied to the Origami smart contracts. As a volunteer researcher, I focus on exploring attack surfaces rather than delivering formal findings.
 
-### Dapp
+Research Scope & Objectives
 
-To start a local development instance:
+My voluntary engagement emphasizes:
 
-```bash
-cd apps/dapp
-yarn
-yarn dev
-```
+Familiarizing with contract flow: entry points, state transitions, and external calls.
 
-### Automation
+Attempting to surface issues related to reentrancy, access control, and edge-case logic.
 
-This uses the [Overlord](https://www.npmjs.com/package/@mountainpath9/overlord) framework to run daily automations for compounding
+Stress-testing fee calculations and reserve accounting under atypical input values.
 
-To build:
+Contracts under review:
 
-```bash
-cd apps/automation
-yarn
-yarn build
-```
+OrigamiBridge.sol
 
-## Contributing
+LiquidityPool.sol
 
-We welcome all contributors to this project - please see the [contribution guide](./CONTRIBUTING.md) for more information on how to get involved and what to expect.
+Vault.sol
+
+FeeManager.sol
+
+AccessControl.sol
+
+Techniques & Tools Used
+
+To systematically probe the protocol, I employ a combination of automated and manual techniques:
+
+Static Analysis
+
+Slither: Identifies common Solidity anti-patterns and potential misconfigurations.
+
+Mythril: Scans for executable paths to known exploit categories.
+
+Securify & Oyente: Cross-check findings for consistency.
+
+Dynamic & Fuzz Testing
+
+Echidna: Property-based fuzzing to explore invariant violations.
+
+Manticore: Symbolic execution to trace complex code paths.
+
+Foundry (forge): Custom test harnesses for edge-case scenarios.
+
+Formal Verification
+
+Certora Prover: Proofs for critical asset custody invariants.
+
+Manual Review & Penetration Techniques
+
+Code walkthroughs targeting unchecked math, improper access checks, and external-call sequencing.
+
+Transaction simulation with Hardhat to test revert conditions and event emissions.
+
+Custom scripts using Brownie or Web3.py to simulate multi-user interactions.
+
+Setup & Usage
+
+# Clone repository
+git clone https://github.com/Franklin-Osede/Origami--Audit-.git
+cd Origami--Audit-
+
+# Install static analysis tools
+npm install --save-dev slither-analyzer mythx-cli securify oyente
+
+# Install fuzzing & symbolic tools
+npm install --save-dev echidna-core manticore forge
+
+# Lint & format
+npm install --save-dev solhint prettier prettier-plugin-solidity
+
+# Run Slither
+npx slither contracts/
+
+# Run Echidna fuzz tests
+echidna-test contracts/ --config echidna-config.yaml
+
+# Symbolic execution with Manticore
+manticore --output-dir reports/manticore contracts/OrigamiBridge.sol
+
+Documentation of Attempts
+
+All tool runs and manual test logs are recorded under /research-logs. Each execution includes:
+
+Tool name & version
+
+Configuration parameters
+
+Date & time of execution
+
+Key observations (e.g., warnings, exceptions, non-standard behavior)
+
+These logs serve as a foundation for further analysis and collaboration.
+
+Current Status
+
+As of the latest review, no vulnerabilities or critical issues have been identified. Research is ongoing, and new tests will be documented in /research-logs as they are conducted.
+
+Collaboration
+
+All tool runs and manual test logs are recorded under /research-logs. Each execution includes:
+
+Tool name & version
+
+Configuration parameters
+
+Date & time of execution
+
+Key observations (e.g., warnings, exceptions, non-standard behavior)
+
+These logs serve as a foundation for further analysis and collaboration.
+
+Collaboration
+
+Fellow researchers are encouraged to:
+
+Fork this repo and add new scripts or test cases.
+
+Open issues describing additional techniques or edge cases.
+
+Submit PRs with improved configurations or sample exploits.
+
+Disclaimer
+
+This work represents voluntary research and does not constitute an official audit. Use these methodologies at your own discretion.
